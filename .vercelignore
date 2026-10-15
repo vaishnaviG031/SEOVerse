@@ -1,0 +1,9 @@
+stitch_project_redesign_overhaul.zip
+stitch_project_redesign_overhaul/
+.cache/
+.pytest_cache/
+tests/
+database/*.db
+*.log
+.codex-backup-*/
+*.bak_before_skip_editor

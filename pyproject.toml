@@ -5,7 +5,8 @@ description = "youtube_seo_agent using crewAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.14"
 dependencies = [
-    "crewai[file-processing,litellm,tools]>=1.15.24,<2.0.0",
+    "crewai[litellm]>=1.15.24,<2.0.0",
+    "crewai-tools",
     "starlette>=0.37.0",
     "uvicorn>=0.30.0",
     "bcrypt>=4.0.0",
