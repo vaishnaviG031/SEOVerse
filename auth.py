@@ -14,7 +14,7 @@ import jwt
 from dotenv import load_dotenv
 
 PROJECT_DIR = Path(__file__).resolve().parent
-DB_DIR = PROJECT_DIR / "database"
+DB_DIR = Path("/tmp/database") if os.getenv("VERCEL") else (PROJECT_DIR / "database")
 DB_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = DB_DIR / "aivora.db"
 

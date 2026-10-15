@@ -44,7 +44,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.concurrency import run_in_threadpool
 
 WEB_DIR = PROJECT_DIR / "frontend"
-REPORT_PATH = PROJECT_DIR / "reports" / "latest_report.md"
+REPORT_PATH = (Path("/tmp/reports") if os.getenv("VERCEL") else (PROJECT_DIR / "reports")) / "latest_report.md"
 RUN_LOCK = Lock()
 
 
