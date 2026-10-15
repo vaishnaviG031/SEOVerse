@@ -1,0 +1,93 @@
+---
+analyze_channel_generate_predictions:
+  description: |-
+    Conduct an in-depth audience and opportunity analysis for "{topic}".
+    Break down:
+    1. Target audience persona, skill level, and core pain points.
+    2. Primary search intent and viewer emotional drivers.
+    3. Describe opportunity qualitatively. Do not invent future view targets, search volumes, CTR, retention, RPM, or engagement benchmarks. State when the public sample does not support a claim.
+    4. 4 high-probability content angles to dominate this niche.
+    {live_context}
+  expected_output: |-
+    A comprehensive audience and market opportunity brief for "{topic}" with evidence-based audience analysis. Separate observed public video counts from qualitative recommendations; mark unavailable metrics as unavailable.
+  agent: youtube_channel_analyst
+
+generate_ai_tools_video_ideas_for_college_students:
+  description: |-
+    For "{topic}", develop 5 high-performing, distinct YouTube video concepts designed for maximum viewer retention and viral reach.
+    For each concept provide:
+    - Working Title (Punchy and intriguing)
+    - 30-Second Hook Strategy (how to prevent viewer drop-off)
+    - Unique Content Angle / Value Proposition
+    - Qualitative retention hypothesis (label it as a creative hypothesis, never as a measured estimate)
+    - Target Viewer Takeaway
+  expected_output: |-
+    Five fully articulated, high-retention video concepts tailored specifically to "{topic}".
+  agent: youtube_research_agent
+  context:
+  - analyze_channel_generate_predictions
+
+analyze_competitor_content:
+  description: |-
+    Conduct a thorough competitor and market analysis for "{topic}".
+    Analyze existing content patterns, title formulas, and formats in this space.
+    Highlight:
+    1. 3 major competitor weaknesses or content gaps currently unaddressed in top videos.
+    2. Common thumbnail and title patterns dominating this niche.
+    3. Specific tactical steps to differentiate and capture viewer attention.
+    4. Report only observed views/engagement included in the live YouTube sample, and state the sample size and limitations. Do not generalize beyond that sample.
+  expected_output: |-
+    A detailed competitor breakdown highlighting 3 exploitable content gaps and competitive differentiation tactics.
+  agent: youtube_competitor_market_research_specialist
+  context:
+  - generate_ai_tools_video_ideas_for_college_students
+
+perform_keyword_search_intent_research:
+  description: |-
+    Build an exhaustive keyword and search intent architecture for "{topic}".
+    Provide:
+    1. Primary high-intent target keywords.
+    2. 10+ long-tail search phrases categorized by intent (Informational, Tutorial/How-To, Comparison/Best, Troubleshooting).
+    3. Do not invent search-volume figures or competition scores. Categorize intent from the phrase itself and clearly state that YouTube search volume is unavailable.
+    4. Strategic tags optimized for YouTube search indexing and Suggested Video recommendation pairing.
+  expected_output: |-
+    A structured keyword matrix and candidate tag clusters for "{topic}" mapped to search intent and competition tiers.
+  agent: youtube_seo_search_intent_strategist
+  context:
+  - analyze_competitor_content
+
+optimize_video_metadata:
+  description: |-
+    For the top video concepts generated for "{topic}", create production-ready metadata:
+    1. 3 high-CTR title variations per concept (Curiosity Hook, Direct Value, Contrarian/Problem-Solving).
+    2. An SEO-optimized video description template with strong first 2 lines, timestamp structure, and keyword placement.
+    3. Candidate YouTube tags (clearly labeled as suggestions, not ranked by measured volume).
+    4. Visual thumbnail blueprint: visual subject, color contrast palette, facial expression/elements, and 2–4 word punchy text overlay.
+  expected_output: |-
+    Production-ready metadata packages for the top video concepts including high-CTR title variations and thumbnail design blueprints.
+  agent: youtube_metadata_ctr_specialist
+  context:
+  - perform_keyword_search_intent_research
+
+generate_final_youtube_seo_strategy_report:
+  description: |-
+    Synthesize all prior agent deliverables into an authoritative, master-level YouTube SEO & Content Strategy Blueprint for "{topic}".
+    The blueprint must include:
+    - 🚀 Executive summary and qualitative opportunity assessment; no numeric score without a validated data source
+    - 🎯 Target Audience Persona & Search Psychology
+    - 💡 Top 5 High-Impact Video Concepts & Retention Hooks
+    - 🔍 Complete Keyword & Search Architecture (Primary & Long-Tail phrases)
+    - 🏆 Competitor Gaps & Winning Differentiation Playbook
+    - 🎨 High-CTR Packaging Studio (Title options, descriptions, thumbnail concepts)
+    - 📈 Evidence and limitations (observed sample only; no future view projections or invented performance metrics)
+    - 🗓️ 7-Day Actionable Production & Launch Calendar
+    Format cleanly in structured Markdown with tables, callouts, and bullet points.
+  expected_output: |-
+    A master-level YouTube SEO & Channel Growth Blueprint in clean, professional Markdown.
+  agent: senior_content_strategy_report_editor
+  context:
+  - analyze_channel_generate_predictions
+  - generate_ai_tools_video_ideas_for_college_students
+  - analyze_competitor_content
+  - perform_keyword_search_intent_research
+  - optimize_video_metadata

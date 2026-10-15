@@ -1,0 +1,39 @@
+# Environment & secrets
+.env
+api.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# CrewAI
+.crewai/
+
+# Database (auto-generated)
+database/*.db
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Backups
+.codex-backup-*/
+*.bak_before_skip_editor
+
+# Pytest
+.pytest_cache/
+
+# Logs
+*.log
+
+# Build artifacts
+dist/
+build/

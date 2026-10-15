@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="description" content="SEOVerse — Intelligent YouTube AI SEO & Growth Studio. Deploy AI agents that think, learn, and act for your YouTube channel."/>
+  <title>SEOVerse — Intelligent Agents. Real Results.</title>
+  
+  <!-- Fonts & Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#06070b",
+            "surface-low": "#0b0e17",
+            "surface-card": "#0f1422",
+            "surface-high": "#161e30",
+            "surface-border": "#1f293d",
+            "on-surface": "#e2e8f0",
+            "on-surface-muted": "#94a3b8",
+            "primary": "#6366f1",
+            "primary-bright": "#818cf8",
+            "primary-glow": "rgba(99, 102, 241, 0.25)",
+            "accent-cyan": "#38bdf8",
+            "accent-emerald": "#10b981",
+            "accent-amber": "#f59e0b",
+            "accent-rose": "#f43f5e",
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk", "sans-serif"],
+            "body": ["Geist", "sans-serif"],
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="bg-surface font-body text-on-surface antialiased min-h-screen selection:bg-primary selection:text-white aivora-grid">
+
+  <!-- ============================================================== -->
+  <!-- 1. TOP GLOBAL NAVIGATION -->
+  <!-- ============================================================== -->
+  <header class="sticky top-0 z-40 bg-surface/90 backdrop-blur-xl border-b border-surface-border/60 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- Brand -->
+      <a href="#" id="navBrandBtn" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 via-primary to-accent-cyan flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.4)] group-hover:scale-105 transition-all">
+          <span class="material-symbols-outlined text-white text-[18px] font-bold">smart_toy</span>
+        </div>
+        <div class="font-headline font-bold text-xl tracking-tight text-white flex items-center gap-1.5">
+          <span>SEOVerse</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm text-on-surface-muted">
+        <a href="#hero" class="nav-link hover:text-white transition-colors" data-view="landing">Home</a>
+        <a href="#agents-section" class="nav-link hover:text-white transition-colors" data-view="landing">AI Agents</a>
+        <a href="#workflow-section" class="nav-link hover:text-white transition-colors" data-view="landing">How It Works</a>
+        <a href="#agents-section" class="nav-link hover:text-white transition-colors" data-view="landing">Benefits</a>
+        <button id="navOpenStudioBtn" class="hover:text-primary-bright font-medium text-white transition-colors flex items-center gap-1">
+          <span>Studio Dashboard</span>
+          <span class="text-[10px] bg-primary/20 text-primary-bright border border-primary/40 px-1.5 py-0.5 rounded font-mono">Live</span>
+        </button>
+      </nav>
+
+      <!-- Auth & Action Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Guest Controls -->
+        <div id="guestControls" class="flex items-center gap-2.5">
+          <button id="openLoginBtn" class="text-xs font-semibold text-white px-3.5 py-2 rounded-xl hover:bg-surface-high border border-surface-border transition-all">
+            Sign In
+          </button>
+          <button id="openSignupBtn" class="text-xs font-semibold bg-white text-black hover:bg-slate-200 px-4 py-2 rounded-xl shadow-md transition-all">
+            Get Started
+          </button>
+        </div>
+
+        <!-- Logged In Controls -->
+        <div id="userControls" class="hidden flex items-center gap-3">
+          <button id="openHistoryBtn" class="flex items-center gap-1.5 bg-surface-card border border-surface-border text-on-surface hover:text-white text-xs font-semibold px-3 py-2 rounded-xl transition-all">
+            <span class="material-symbols-outlined text-[16px] text-accent-cyan">history</span>
+            <span>History</span>
+            <span id="historyCountBadge" class="bg-surface-high text-[10px] px-1.5 py-0.5 rounded text-accent-cyan">0</span>
+          </button>
+
+          <div class="relative group">
+            <button id="userProfileBtn" class="flex items-center gap-2 bg-surface-card border border-surface-border px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:border-primary/50 transition-all">
+              <div id="userAvatar" class="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-500 to-accent-cyan text-white text-[11px] font-bold flex items-center justify-center">
+                U
+              </div>
+              <span id="userNameLabel" class="max-w-[100px] truncate">Creator</span>
+              <span class="material-symbols-outlined text-[14px] text-on-surface-muted">expand_more</span>
+            </button>
+
+            <!-- Dropdown -->
+            <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-surface-card border border-surface-border rounded-xl shadow-2xl py-2 hidden z-50 text-xs">
+              <div class="px-3 py-2 border-b border-surface-border/60">
+                <p id="userDropdownName" class="font-bold text-white truncate">Creator</p>
+                <p id="userDropdownEmail" class="text-[11px] text-on-surface-muted truncate">user@example.com</p>
+              </div>
+              <button id="dropdownHistoryBtn" class="w-full text-left px-3 py-2 hover:bg-surface-high text-on-surface hover:text-white flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px] text-accent-cyan">history</span>
+                <span>My Saved Reports</span>
+              </button>
+              <button id="logoutBtn" class="w-full text-left px-3 py-2 hover:bg-surface-high text-accent-rose flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">logout</span>
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deploy/Studio Shortcut -->
+        <button id="heroDeployBtnShortcut" class="hidden sm:flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-primary hover:opacity-95 text-white font-semibold text-xs px-3.5 py-2 rounded-xl shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all">
+          <span class="material-symbols-outlined text-[16px]">rocket_launch</span>
+          <span>Deploy Agent</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================== -->
+  <!-- 2. LANDING PAGE VIEW (SEOVerse Reference Architecture) -->
+  <!-- ============================================================== -->
+  <div id="landingPageView" class="flex flex-col">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative pt-16 pb-20 px-6 overflow-hidden aivora-radial-glow border-b border-surface-border/40">
+      <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
+        
+        <!-- Preview Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-card border border-surface-border text-xs text-on-surface-muted mb-8 shadow-inner animate-pulse">
+          <span class="w-2 h-2 rounded-full bg-accent-emerald shadow-[0_0_8px_#10b981]"></span>
+          <span class="font-medium text-slate-300">Intelligence 2.0 first Preview</span>
+        </div>
+
+        <!-- Hero Headline -->
+        <h1 class="font-headline font-bold text-4xl sm:text-6xl md:text-7xl tracking-tight text-white max-w-4xl leading-[1.1] mb-6">
+          Intelligent Agents<br/>
+          <span class="bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Real Results</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base sm:text-lg md:text-xl text-on-surface-muted max-w-2xl font-light mb-10 leading-relaxed">
+          Deploy AI agents that think, learn, and act so your team can focus on growth.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+          <button id="heroDeployBtn" class="flex items-center gap-2.5 bg-surface-card border border-slate-700 hover:border-slate-500 hover:bg-surface-high text-white font-semibold px-7 py-3 rounded-2xl shadow-xl text-sm transition-all group">
+            <span class="material-symbols-outlined text-[18px] text-accent-emerald group-hover:scale-110 transition-transform">bolt</span>
+            <span>Deploy Your Agent</span>
+          </button>
+          <a href="#interactive-diagram" class="flex items-center gap-2 text-on-surface-muted hover:text-white px-5 py-3 text-sm font-medium transition-all">
+            <span>Explore Architecture</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+          </a>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- THE AIVORA INTERACTIVE AGENT ORCHESTRATION DIAGRAM -->
+        <!-- Directly recreates the user's provided SEOVerse reference mockup -->
+        <!-- ============================================================== -->
+        <div id="interactive-diagram" class="w-full max-w-5xl rounded-3xl bg-[#080b12] border border-surface-border/80 p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+          
+          <!-- Subtle inner grid lines -->
+          <div class="absolute inset-0 aivora-grid opacity-60 pointer-events-none"></div>
+          <div class="absolute inset-0 aivora-emerald-glow pointer-events-none"></div>
+
+          <!-- Top Status Bar inside mockup -->
+          <div class="relative z-10 flex items-center justify-between pb-6 mb-8 border-b border-surface-border/60 text-xs">
+            <div class="flex items-center gap-2 text-on-surface-muted">
+              <span class="w-2 h-2 rounded-full bg-accent-emerald animate-ping"></span>
+              <span class="font-mono text-slate-300">Agent workflow: starts on request</span>
+            </div>
+            <div class="text-[11px] font-mono text-on-surface-muted">
+              Runtime: <span class="text-accent-cyan" id="landingRuntime">CrewAI Multi-Agent · checking configuration</span>
+            </div>
+          </div>
+
+          <!-- Flowchart Canvas (Responsive Flex/Grid) -->
+          <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            
+            <!-- LEFT NODE: YouTube Live Trigger (Like Gmail Trigger in reference) -->
+            <div class="md:col-span-3 flex flex-col items-center">
+              <div class="agent-node-left w-full max-w-[200px] p-4 rounded-2xl flex flex-col items-center gap-3 text-center border border-surface-border/80 hover:border-red-500/40 transition-all cursor-pointer group">
+                <div class="w-12 h-12 rounded-xl bg-red-600/10 border border-red-500/30 flex items-center justify-center text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.2)] group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-[24px]">play_circle</span>
+                </div>
+                <div>
+                  <div class="font-headline font-bold text-sm text-white">YouTube Trigger</div>
+                  <div class="text-[11px] text-on-surface-muted">Live Topic &amp; Search API</div>
+                </div>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400 mt-2">Trigger Ingestion</div>
+            </div>
+
+            <!-- CONNECTOR ARROW 1 (Left to Center) -->
+            <div class="hidden md:flex md:col-span-1 justify-center items-center">
+              <svg width="60" height="20" class="overflow-visible">
+                <line x1="0" y1="10" x2="60" y2="10" stroke="#10b981" stroke-width="2" class="connector-pulse" />
+                <polygon points="56,7 62,10 56,13" fill="#10b981" />
+              </svg>
+            </div>
+
+            <!-- CENTER NODE: AI Agent / Tools Agent (Centerpiece from reference) -->
+            <div class="md:col-span-4 flex flex-col items-center">
+              <div class="agent-node-center w-full p-5 sm:p-6 rounded-2xl flex flex-col items-center gap-3 text-center relative">
+                <div class="absolute -top-3 px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/50 text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                  Orchestrator
+                </div>
+                <div class="w-14 h-14 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                  <span class="material-symbols-outlined text-[28px]">memory</span>
+                </div>
+                <div>
+                  <div class="font-headline font-bold text-base text-white">AI Agent</div>
+                  <div class="text-xs text-emerald-400 font-medium">Tools Agent &amp; Reasoning</div>
+                </div>
+                <div class="text-[11px] text-on-surface-muted max-w-[220px]">
+                  Analysis of public video results and topic-focused strategy recommendations.
+                </div>
+              </div>
+            </div>
+
+            <!-- CONNECTOR ARROW 2 (Center to Right) -->
+            <div class="hidden md:flex md:col-span-1 justify-center items-center">
+              <svg width="60" height="20" class="overflow-visible">
+                <line x1="0" y1="10" x2="60" y2="10" stroke="#38bdf8" stroke-width="2" class="connector-pulse" />
+                <polygon points="56,7 62,10 56,13" fill="#38bdf8" />
+              </svg>
+            </div>
+
+            <!-- RIGHT CONNECTORS: Channels & Deliverables -->
+            <div class="md:col-span-3 flex flex-col gap-3">
+              <div class="agent-node-tool p-3 rounded-xl flex items-center gap-3 border border-surface-border hover:border-accent-cyan/40 transition-all cursor-pointer">
+                <div class="w-8 h-8 rounded-lg bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center text-accent-cyan">
+                  <span class="material-symbols-outlined text-[18px]">trending_up</span>
+                </div>
+                <div class="text-left">
+                  <div class="text-xs font-bold text-white">Observed video data</div>
+                  <div class="text-[10px] text-on-surface-muted">No future view forecast</div>
+                </div>
+              </div>
+
+              <div class="agent-node-tool p-3 rounded-xl flex items-center gap-3 border border-surface-border hover:border-accent-emerald/40 transition-all cursor-pointer">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <span class="material-symbols-outlined text-[18px]">auto_stories</span>
+                </div>
+                <div class="text-left">
+                  <div class="text-xs font-bold text-white">Video concept guidance</div>
+                  <div class="text-[10px] text-on-surface-muted">Pattern Interrupts</div>
+                </div>
+              </div>
+
+              <div class="agent-node-tool p-3 rounded-xl flex items-center gap-3 border border-surface-border hover:border-primary/40 transition-all cursor-pointer">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-primary-bright">
+                  <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                </div>
+                <div class="text-left">
+                  <div class="text-xs font-bold text-white">7-Day Launch Calendar</div>
+                  <div class="text-[10px] text-on-surface-muted">Production Blueprint</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- BOTTOM CONNECTORS: 4 Tool Chips (From reference image: OpenAI, Memory, Docs, Sheets) -->
+          <div class="mt-8 pt-6 border-t border-surface-border/60">
+            <div class="text-center text-[11px] font-mono uppercase tracking-wider text-on-surface-muted mb-4">
+              Integrated Tools &amp; Intelligence Engines
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="agent-node-tool p-3 rounded-xl flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-[20px] text-indigo-400">psychology</span>
+                <div class="text-left">
+                  <div class="text-xs font-bold text-white">Configured CrewAI model Flash</div>
+                  <div class="text-[10px] text-on-surface-muted">Deep Multi-Model LLM</div>
+                </div>
+              </div>
+
+              <div class="agent-node-tool p-3 rounded-xl flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-[20px] text-accent-cyan">database</span>
+                <div class="text-left">
+                  <div class="text-xs font-bold text-white">Live YouTube Data</div>
+                  <div class="text-[10px] text-on-surface-muted">YouTube Data API v3</div>
+                </div>
+              </div>
+
+              <div class="agent-node-tool p-3 rounded-xl flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-[20px] text-accent-emerald">tag</span>
+                <div class="text-left">
+                  <div class="text-xs font-bold text-white">Keyword Matrix</div>
+                  <div class="text-[10px] text-on-surface-muted">4-Intent Clustering</div>
+                </div>
+              </div>
+
+              <div class="agent-node-tool p-3 rounded-xl flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-[20px] text-accent-amber">description</span>
+                <div class="text-left">
+                  <div class="text-xs font-bold text-white">SEO Blueprint Docs</div>
+                  <div class="text-[10px] text-on-surface-muted">Markdown Exporter</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Topic Launch Pad directly inside mockup -->
+          <div class="mt-8 pt-6 border-t border-surface-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 bg-surface-card/60 p-4 rounded-2xl">
+            <div class="flex items-center gap-3 text-left">
+              <span class="material-symbols-outlined text-accent-cyan text-[22px]">terminal</span>
+              <div>
+                <div class="text-xs font-bold text-white">Try It In Real Time</div>
+                <div class="text-[11px] text-on-surface-muted">Research public YouTube results for a topic</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <input 
+                type="text" 
+                id="landingQuickInput" 
+                class="bg-surface-low border border-surface-border rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-on-surface-muted focus:outline-none focus:border-primary w-full sm:w-64"
+                placeholder="e.g. AI tools for student research"
+                value=""
+              />
+              <button id="landingQuickBtn" class="bg-primary hover:bg-primary-bright text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all whitespace-nowrap shadow-md">
+                Research Topic
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 3. 6-AGENT AUTONOMOUS ARCHITECTURE -->
+    <!-- ============================================================== -->
+    <section id="agents-section" class="py-20 px-6 max-w-7xl mx-auto border-b border-surface-border/40">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="text-xs font-bold uppercase tracking-wider text-primary-bright mb-2">Autonomous CrewAI Intelligence</div>
+        <h2 class="font-headline text-3xl sm:text-4xl font-bold text-white">
+          6 Autonomous Specialists.<br/>One Unified SEO Plan.
+        </h2>
+        <p class="text-sm text-on-surface-muted mt-3">
+          Each agent is trained on a distinct dimension of YouTube's search and recommendation algorithms.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Agent 1 -->
+        <div class="glow-card p-6 rounded-2xl flex flex-col gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+            01
+          </div>
+          <h3 class="font-headline font-bold text-base text-white">Audience &amp; Opportunity Strategist</h3>
+          <p class="text-xs text-on-surface-muted leading-relaxed">
+            Deconstructs user psychology, core emotional drivers, and isolates the high-converting friction points competitors fail to address.
+          </p>
+          <div class="mt-auto pt-2 text-[11px] font-mono text-indigo-400">Output: Persona Profile &amp; Traffic Split</div>
+        </div>
+
+        <!-- Agent 2 -->
+        <div class="glow-card p-6 rounded-2xl flex flex-col gap-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
+            02
+          </div>
+          <h3 class="font-headline font-bold text-base text-white">Content Research Director (Viral Hooks)</h3>
+          <p class="text-xs text-on-surface-muted leading-relaxed">
+            Engineers the crucial first 30 seconds of your video with pattern interrupts, visual proofs, and retention hooks that prevent drop-offs.
+          </p>
+          <div class="mt-auto pt-2 text-[11px] font-mono text-cyan-400">Output: 5 Video Concepts &amp; 30s Scripts</div>
+        </div>
+
+        <!-- Agent 3 -->
+        <div class="glow-card p-6 rounded-2xl flex flex-col gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            03
+          </div>
+          <h3 class="font-headline font-bold text-base text-white">Live Competitor Intelligence</h3>
+          <p class="text-xs text-on-surface-muted leading-relaxed">
+            Directly interrogates the YouTube Data API v3 to inspect top ranking videos, view distributions, viral ceilings, and exploitable content gaps.
+          </p>
+          <div class="mt-auto pt-2 text-[11px] font-mono text-emerald-400">Output: Real Competitor Benchmarks</div>
+        </div>
+
+        <!-- Agent 4 -->
+        <div class="glow-card p-6 rounded-2xl flex flex-col gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+            04
+          </div>
+          <h3 class="font-headline font-bold text-base text-white">YouTube SEO &amp; Search Intent</h3>
+          <p class="text-xs text-on-surface-muted leading-relaxed">
+            Clusters keywords into 4 intent buckets: Informational, Tutorial/How-To, Comparison, and Troubleshooting for maximum semantic reach.
+          </p>
+          <div class="mt-auto pt-2 text-[11px] font-mono text-amber-400">Output: 4-Bucket Keyword Matrix</div>
+        </div>
+
+        <!-- Agent 5 -->
+        <div class="glow-card p-6 rounded-2xl flex flex-col gap-3">
+          <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center font-bold">
+            05
+          </div>
+          <h3 class="font-headline font-bold text-base text-white">High-CTR Title &amp; Thumbnail Studio</h3>
+          <p class="text-xs text-on-surface-muted leading-relaxed">
+            Crafts 3 title formulas (Curiosity, Direct Value, Contrarian) and 3-layer thumbnail specifications optimized for mobile legibility.
+          </p>
+          <div class="mt-auto pt-2 text-[11px] font-mono text-rose-400">Output: Packaging Packages &amp; Tag Clusters</div>
+        </div>
+
+        <!-- Agent 6 -->
+        <div class="glow-card p-6 rounded-2xl flex flex-col gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+            06
+          </div>
+          <h3 class="font-headline font-bold text-base text-white">Senior Executive Release Director</h3>
+          <p class="text-xs text-on-surface-muted leading-relaxed">
+            Synthesizes all outputs into an actionable 7-Day Production and Launch Calendar with distribution checklists and 48-hour CTR audit protocols.
+          </p>
+          <div class="mt-auto pt-2 text-[11px] font-mono text-purple-400">Output: 7-Day Actionable Plan &amp; Markdown</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 4. HOW IT WORKS WORKFLOW STEPPER -->
+    <!-- ============================================================== -->
+    <section id="workflow-section" class="py-20 px-6 max-w-7xl mx-auto border-b border-surface-border/40">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="text-xs font-bold uppercase tracking-wider text-accent-cyan mb-2">Linear 5-Step Pipeline</div>
+        <h2 class="font-headline text-3xl sm:text-4xl font-bold text-white">
+          From Topic Seed to Complete Strategy
+        </h2>
+        <p class="text-sm text-on-surface-muted mt-3">
+          Transparent, verifiable intelligence with zero dummy data and zero guesswork.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2 relative">
+          <div class="w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center">1</div>
+          <div class="font-headline font-bold text-sm text-white">Topic Research</div>
+          <p class="text-xs text-on-surface-muted">Audience psychology, emotional drivers, and search vs browse split.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2 relative">
+          <div class="w-7 h-7 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold flex items-center justify-center">2</div>
+          <div class="font-headline font-bold text-sm text-white">Competitor Intel</div>
+          <p class="text-xs text-on-surface-muted">Live YouTube API view statistics, viral ceilings, and gap analysis.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2 relative">
+          <div class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center">3</div>
+          <div class="font-headline font-bold text-sm text-white">Keywords Matrix</div>
+          <p class="text-xs text-on-surface-muted">Intent classification across Informational, Tutorial, and Comparison.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2 relative">
+          <div class="w-7 h-7 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold flex items-center justify-center">4</div>
+          <div class="font-headline font-bold text-sm text-white">AI Predictions</div>
+          <p class="text-xs text-on-surface-muted">Observed public-video data, keyword intent suggestions, and limitations.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2 relative">
+          <div class="w-7 h-7 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center">5</div>
+          <div class="font-headline font-bold text-sm text-white">Strategy Plan</div>
+          <p class="text-xs text-on-surface-muted">Packaging formulas, thumbnail blueprints, and 7-day launch calendar.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 5. PRICING SECTION -->
+    <!-- ============================================================== -->
+    <section id="pricing-section" class="py-20 px-6 max-w-7xl mx-auto border-b border-surface-border/40">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="text-xs font-bold uppercase tracking-wider text-accent-emerald mb-2">Transparent Pricing</div>
+        <h2 class="font-headline text-3xl sm:text-4xl font-bold text-white">
+          Simple Plans For Serious Creators
+        </h2>
+        <p class="text-sm text-on-surface-muted mt-3">
+          Deploy state-of-the-art YouTube intelligence at any stage of channel growth.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        
+        <!-- Starter Plan -->
+        <div class="glow-card p-6 rounded-3xl flex flex-col gap-6">
+          <div>
+            <h3 class="font-headline font-bold text-lg text-white">Starter Creator</h3>
+            <p class="text-xs text-on-surface-muted mt-1">For new channels seeking search traction.</p>
+          </div>
+          <div class="text-3xl font-headline font-bold text-white">$0 <span class="text-xs font-normal text-on-surface-muted">/ forever</span></div>
+          <ul class="flex flex-col gap-2.5 text-xs text-on-surface-muted">
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Evidence-based research</span>
+            </li>
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Live YouTube Competitor Benchmarks</span>
+            </li>
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>4-Intent Keyword Matrix</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-surface-border">check</span>
+              <span>Local Ollama + Gemini Flash Lite</span>
+            </li>
+          </ul>
+          <button class="launch-studio-action w-full py-2.5 rounded-xl border border-surface-border text-xs font-semibold text-white hover:bg-surface-high transition-all mt-auto">
+            Start Free
+          </button>
+        </div>
+
+        <!-- Pro Plan (Featured) -->
+        <div class="p-6 rounded-3xl bg-surface-card border-2 border-primary shadow-[0_0_30px_rgba(99,102,241,0.2)] flex flex-col gap-6 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-wider shadow">
+            Most Popular
+          </div>
+          <div>
+            <h3 class="font-headline font-bold text-lg text-white">Pro Creator</h3>
+            <p class="text-xs text-on-surface-muted mt-1">For weekly publishing creators &amp; small teams.</p>
+          </div>
+          <div class="text-3xl font-headline font-bold text-white">$29 <span class="text-xs font-normal text-on-surface-muted">/ month</span></div>
+          <ul class="flex flex-col gap-2.5 text-xs text-on-surface-muted">
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Everything in Starter</span>
+            </li>
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>6-Agent Autonomous CrewAI Runs</span>
+            </li>
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Unlimited Saved Analysis History</span>
+            </li>
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Full Markdown Strategy Blueprint Export</span>
+            </li>
+          </ul>
+          <button class="launch-studio-action w-full py-2.5 rounded-xl bg-primary hover:bg-primary-bright text-white text-xs font-bold transition-all shadow-md mt-auto">
+            Deploy Pro Agent
+          </button>
+        </div>
+
+        <!-- Agency Plan -->
+        <div class="glow-card p-6 rounded-3xl flex flex-col gap-6">
+          <div>
+            <h3 class="font-headline font-bold text-lg text-white">Agency Scale</h3>
+            <p class="text-xs text-on-surface-muted mt-1">For multi-channel media companies.</p>
+          </div>
+          <div class="text-3xl font-headline font-bold text-white">$99 <span class="text-xs font-normal text-on-surface-muted">/ month</span></div>
+          <ul class="flex flex-col gap-2.5 text-xs text-on-surface-muted">
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Everything in Pro</span>
+            </li>
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Multi-User Creator Workspace</span>
+            </li>
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Custom YouTube API Quota Routing</span>
+            </li>
+            <li class="flex items-center gap-2 text-slate-300">
+              <span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+              <span>Dedicated AI Model Fine-Tuning</span>
+            </li>
+          </ul>
+          <button class="launch-studio-action w-full py-2.5 rounded-xl border border-surface-border text-xs font-semibold text-white hover:bg-surface-high transition-all mt-auto">
+            Contact Enterprise
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 6. BOTTOM CALL TO ACTION BANNER -->
+    <!-- ============================================================== -->
+    <section class="py-20 px-6 max-w-5xl mx-auto text-center">
+      <div class="p-10 sm:p-14 rounded-3xl bg-gradient-to-b from-surface-card to-surface-low border border-surface-border/80 shadow-2xl relative overflow-hidden">
+        <div class="relative z-10 flex flex-col items-center gap-6">
+          <h2 class="font-headline font-bold text-3xl sm:text-4xl text-white max-w-xl">
+            Ready to deploy your AI agent network?
+          </h2>
+          <p class="text-sm text-on-surface-muted max-w-md">
+            Enter your topic, analyze competitors in real time, and receive an actionable SEO strategy blueprint in seconds.
+          </p>
+          <button id="ctaDeployBtn" class="flex items-center gap-2 bg-white text-black hover:bg-slate-200 font-bold text-sm px-8 py-3.5 rounded-2xl shadow-xl transition-all">
+            <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+            <span>Launch Studio Dashboard</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-surface-border/60 py-10 px-6 bg-surface-low/80">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-on-surface-muted">
+        <div class="flex items-center gap-2">
+          <div class="w-5 h-5 rounded bg-primary flex items-center justify-center text-white text-[12px] font-bold">A</div>
+          <span class="font-headline font-bold text-white">SEOVerse</span>
+          <span>© 2026 YouTube Growth Intelligence. All rights reserved.</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <span id="serviceStatus" class="flex items-center gap-1.5 text-accent-emerald">
+            <span class="w-2 h-2 rounded-full bg-accent-emerald"></span>
+            <span>Checking backend status</span>
+          </span>
+          <a href="#" class="hover:text-white transition-colors">Privacy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms</a>
+          <a href="#" class="hover:text-white transition-colors">Documentation</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- 3. STUDIO DASHBOARD VIEW (5-STEP CLEAN WORKFLOW) -->
+  <!-- ============================================================== -->
+  <div id="studioDashboardView" class="hidden flex flex-col min-h-screen">
+    
+    <!-- STUDIO TOP BAR -->
+    <div class="sticky top-[65px] z-30 bg-surface-low/95 backdrop-blur-xl border-b border-surface-border/70 px-6 py-3">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        
+        <!-- Topic Search Input -->
+        <form id="topSearchForm" class="flex-1 max-w-xl">
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-muted">search</span>
+            <input 
+              type="text" 
+              id="topicInput" 
+              class="w-full bg-surface-card border border-surface-border rounded-xl pl-9 pr-9 py-2 text-xs sm:text-sm text-white placeholder:text-on-surface-muted focus:outline-none focus:border-primary transition-all" 
+              placeholder="Enter a YouTube topic (e.g. home espresso techniques)..." 
+              value=""
+              required
+            />
+            <button type="button" id="clearTopicBtn" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-muted hover:text-white text-xs">✕</button>
+          </div>
+        </form>
+
+        <!-- Studio Controls -->
+        <div class="flex items-center gap-2 shrink-0">
+          <!-- Model Selector -->
+          <div class="relative hidden sm:block">
+            <select id="modelSelect" class="appearance-none bg-surface-card border border-surface-border text-on-surface text-xs font-medium pl-3 pr-8 py-2 rounded-xl cursor-pointer hover:border-surface-border/80 focus:outline-none">
+              <option value="gemini/gemini-3.5-flash-lite" selected>Configured CrewAI model Flash Lite (Cloud)</option>
+              <option value="gemini/gemini-3.8-flash">Gemini 3.8 Flash (Deep)</option>
+              <option value="ollama/llama3.2:1b">Ollama Llama 3.2:1b (Local)</option>
+            </select>
+            <span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[16px] text-on-surface-muted">expand_more</span>
+          </div>
+
+          <!-- Quick Predict Button -->
+          <button id="quickPredictBtn" type="button" class="flex items-center gap-1.5 bg-surface-card border border-accent-cyan/50 text-accent-cyan hover:bg-accent-cyan/10 font-semibold text-xs px-3.5 py-2 rounded-xl transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[16px]">bolt</span>
+            <span>Quick Research</span>
+          </button>
+
+          <!-- Launch 6-Agent Strategy -->
+          <button id="launchCrewBtn" type="button" class="flex items-center gap-1.5 bg-gradient-to-r from-indigo-500 to-primary text-white font-semibold text-xs px-4 py-2 rounded-xl hover:opacity-95 transition-all shadow-[0_0_15px_rgba(99,102,241,0.35)]">
+            <span class="material-symbols-outlined text-[16px]">rocket_launch</span>
+            <span class="hidden sm:inline">Run 6-Agent AI Strategy</span>
+            <span class="sm:hidden">Run AI</span>
+          </button>
+
+          <!-- Back to Overview -->
+          <button id="closeStudioBtn" type="button" class="flex items-center gap-1 bg-surface-card border border-surface-border text-on-surface-muted hover:text-white text-xs font-semibold px-3 py-2 rounded-xl transition-all" title="Back to Landing Page">
+            <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+            <span class="hidden md:inline">Landing Page</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WORKFLOW STEPPER BAR (Sticky) -->
+    <div class="sticky top-[118px] z-20 bg-surface-low/90 backdrop-blur-md border-b border-surface-border/50 px-6 py-2.5">
+      <div class="max-w-7xl mx-auto flex items-center justify-between overflow-x-auto gap-2 text-xs">
+        <div class="flex items-center gap-2 text-on-surface-muted shrink-0">
+          <span class="font-bold text-white uppercase tracking-wider text-[11px]">Workflow:</span>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0" id="workflowNav">
+          <!-- Step 1: Research -->
+          <button data-target="section-research" class="wf-step-btn active flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-transparent text-on-surface-muted hover:text-white hover:bg-surface-high transition-all">
+            <span class="w-5 h-5 rounded-full bg-surface-border flex items-center justify-center text-[10px] font-bold text-primary-bright">1</span>
+            <span>Topic Research</span>
+          </button>
+
+          <span class="text-surface-border">→</span>
+
+          <!-- Step 2: Competitor Analysis -->
+          <button data-target="section-competitors" class="wf-step-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-transparent text-on-surface-muted hover:text-white hover:bg-surface-high transition-all">
+            <span class="w-5 h-5 rounded-full bg-surface-border flex items-center justify-center text-[10px] font-bold text-accent-cyan">2</span>
+            <span>Competitor Analysis</span>
+          </button>
+
+          <span class="text-surface-border">→</span>
+
+          <!-- Step 3: Keywords -->
+          <button data-target="section-keywords" class="wf-step-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-transparent text-on-surface-muted hover:text-white hover:bg-surface-high transition-all">
+            <span class="w-5 h-5 rounded-full bg-surface-border flex items-center justify-center text-[10px] font-bold text-accent-emerald">3</span>
+            <span>Keywords</span>
+          </button>
+
+          <span class="text-surface-border">→</span>
+
+          <!-- Step 4: AI Predictions -->
+          <button data-target="section-predictions" class="wf-step-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-transparent text-on-surface-muted hover:text-white hover:bg-surface-high transition-all">
+            <span class="w-5 h-5 rounded-full bg-surface-border flex items-center justify-center text-[10px] font-bold text-accent-cyan">4</span>
+            <span class="font-semibold text-accent-cyan">AI Predictions</span>
+          </button>
+
+          <span class="text-surface-border">→</span>
+
+          <!-- Step 5: Final Strategy -->
+          <button data-target="section-strategy" class="wf-step-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-transparent text-on-surface-muted hover:text-white hover:bg-surface-high transition-all">
+            <span class="w-5 h-5 rounded-full bg-surface-border flex items-center justify-center text-[10px] font-bold text-accent-amber">5</span>
+            <span class="font-semibold text-accent-amber">Strategy Plan</span>
+          </button>
+        </div>
+
+        <div class="text-[11px] font-mono text-on-surface-muted hidden md:flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-accent-emerald"></span>
+          <span id="headerEngineBadge">Engine Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN DASHBOARD CONTENT AREA -->
+    <main class="dashboard-shell max-w-7xl mx-auto px-6 py-8 flex flex-col gap-14 w-full">
+
+      <!-- ========================================== -->
+      <!-- TOPIC OVERVIEW SUMMARY CARD -->
+      <!-- ========================================== -->
+      <section class="p-6 rounded-2xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+        <div class="flex flex-col gap-1.5 z-10">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-primary-bright">Active Topic Ingestion</span>
+            <span class="text-[11px] bg-surface-high px-2 py-0.5 rounded text-on-surface-muted font-mono" id="topicTimestamp">No analysis yet</span>
+          </div>
+          <h1 class="font-headline text-2xl sm:text-3xl font-bold text-white tracking-tight" id="currentTopicTitle">
+            No analysis yet
+          </h1>
+          <p class="text-xs text-on-surface-muted max-w-2xl" id="topicSubtitle">
+            Sign in to run a topic analysis using available public YouTube data and your configured agents.
+          </p>
+        </div>
+
+        <!-- Opportunity Score Dial -->
+        <div class="flex items-center gap-4 bg-surface-low border border-surface-border/80 px-5 py-3.5 rounded-xl z-10 shrink-0">
+          <div class="text-right">
+            <div class="text-[11px] font-semibold text-on-surface-muted uppercase tracking-wider">Qualitative opportunity assessment</div>
+            <div class="text-xs text-accent-emerald font-medium">Awaiting analysis</div>
+          </div>
+          <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-accent-emerald/20 to-accent-cyan/20 border-2 border-accent-emerald flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+            <span class="font-headline font-bold text-xl text-white" id="opportunityScore">Not scored</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- WORKFLOW STEP 1: TOPIC RESEARCH -->
+      <!-- ========================================== -->
+      <section id="section-research" class="flex flex-col gap-4">
+        <div class="flex items-center justify-between border-b border-surface-border pb-3">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-primary-bright">Workflow Stage 1</div>
+            <h2 class="font-headline text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary-bright text-[24px]">psychology</span>
+              <span>Topic Research &amp; Audience Psychology</span>
+            </h2>
+          </div>
+          <span class="text-xs text-on-surface-muted">Target Viewer Persona &amp; Friction Points</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Persona Profile Card -->
+          <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2.5">
+            <div class="text-xs font-bold text-primary-bright uppercase tracking-wider flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">person</span>
+              <span>Target Viewer Profile</span>
+            </div>
+            <div class="font-headline font-bold text-base text-white" id="researchPersonaTitle">
+              College Undergrads &amp; Graduate Students
+            </div>
+            <p class="text-xs text-on-surface-muted leading-relaxed" id="researchDemographics">
+              Students facing high cognitive load, thesis deadlines, exam prep, and research fatigue seeking free or affordable AI workflows.
+            </p>
+          </div>
+
+          <!-- Emotional Drivers Card -->
+          <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2.5">
+            <div class="text-xs font-bold text-accent-cyan uppercase tracking-wider flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">favorite</span>
+              <span>Core Emotional Drivers</span>
+            </div>
+            <ul class="flex flex-col gap-1.5 text-xs text-on-surface" id="researchDriversList">
+              <li class="flex items-start gap-1.5">
+                <span class="text-accent-cyan">•</span>
+                <span><strong>Academic Survival:</strong> Relieving panic before deadlines with reliable tools.</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-accent-cyan">•</span>
+                <span><strong>Cost Sensitivity:</strong> High skepticism toward tools requiring costly monthly subscriptions.</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-accent-cyan">•</span>
+                <span><strong>Ethical Safety:</strong> Protecting academic integrity while accelerating research.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Traffic Opportunity Split -->
+          <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2.5">
+            <div class="text-xs font-bold text-accent-emerald uppercase tracking-wider flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">pie_chart</span>
+              <span>Traffic Acquisition Split</span>
+            </div>
+            <div class="flex items-center gap-3 mt-1">
+              <div class="flex-1 bg-surface-low p-3 rounded-xl border border-surface-border/50 text-center">
+                <div class="text-lg font-bold text-white" id="trafficSearchSplit">—</div>
+                <div class="text-[11px] text-on-surface-muted">YouTube Search</div>
+              </div>
+              <div class="flex-1 bg-surface-low p-3 rounded-xl border border-surface-border/50 text-center">
+                <div class="text-lg font-bold text-accent-emerald" id="trafficBrowseSplit">—</div>
+                <div class="text-[11px] text-on-surface-muted">Browse &amp; Suggested</div>
+              </div>
+            </div>
+            <div class="text-[11px] text-on-surface-muted mt-1">
+              High browse potential indicates thumbnails &amp; curiosity hooks dominate long-term views.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- WORKFLOW STEP 2: COMPETITOR ANALYSIS -->
+      <!-- ========================================== -->
+      <section id="section-competitors" class="flex flex-col gap-4">
+        <div class="flex items-center justify-between border-b border-surface-border pb-3">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-accent-cyan">Workflow Stage 2</div>
+            <h2 class="font-headline text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-accent-cyan text-[24px]">query_stats</span>
+              <span>Competitor Analysis (Live YouTube Data)</span>
+            </h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-on-surface-muted hidden sm:inline">Queried via YouTube Data API v3</span>
+            <button id="refreshLiveYtBtn" class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-high border border-surface-border text-xs text-white transition-all">
+              <span class="material-symbols-outlined text-[14px]">refresh</span>
+              <span>Refresh API</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Competitor High-Level Stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border">
+            <div class="text-[11px] text-on-surface-muted font-medium">Competitors Sampled</div>
+            <div class="text-xl font-bold text-white mt-1" id="statCompCount">0 videos</div>
+          </div>
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border">
+            <div class="text-[11px] text-on-surface-muted font-medium">Average Views</div>
+            <div class="text-xl font-bold text-accent-cyan mt-1" id="statAvgViews">N/A</div>
+          </div>
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border">
+            <div class="text-[11px] text-on-surface-muted font-medium">Median Views</div>
+            <div class="text-xl font-bold text-accent-emerald mt-1" id="statMedianViews">N/A</div>
+          </div>
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border">
+            <div class="text-[11px] text-on-surface-muted font-medium">Top observed views</div>
+            <div class="text-xl font-bold text-accent-amber mt-1" id="statTopViews">N/A</div>
+          </div>
+        </div>
+
+        <!-- Live Competitor Videos Table -->
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <div class="text-xs font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-red-500 text-[18px]">play_circle</span>
+              <span>Public YouTube video results for this topic</span>
+            </div>
+            <span class="text-[11px] text-on-surface-muted">Counts from current public search results</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-surface-border text-on-surface-muted font-semibold">
+                  <th class="py-2.5 px-3">Video Title &amp; Channel</th>
+                  <th class="py-2.5 px-3 text-right">Views</th>
+                  <th class="py-2.5 px-3 text-right">Likes</th>
+                  <th class="py-2.5 px-3 text-center">Published</th>
+                  <th class="py-2.5 px-3 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="competitorTableBody" class="divide-y divide-surface-border/50 text-on-surface">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Exploitable Competitor Gaps -->
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-3">
+          <div class="text-xs font-bold text-accent-amber uppercase tracking-wider flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">crisis_alert</span>
+            <span>Identified Competitor Vulnerabilities &amp; Content Gaps</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="competitorGapsGrid">
+            <!-- Dynamically populated gaps -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- WORKFLOW STEP 3: KEYWORD INSIGHTS -->
+      <!-- ========================================== -->
+      <section id="section-keywords" class="flex flex-col gap-4">
+        <div class="flex items-center justify-between border-b border-surface-border pb-3">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-accent-emerald">Workflow Stage 3</div>
+            <h2 class="font-headline text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-accent-emerald text-[24px]">tag</span>
+              <span>Keyword Insights &amp; Search Intent Matrix</span>
+            </h2>
+          </div>
+          <span class="text-xs text-on-surface-muted">Categorized by Algorithmic Intent</span>
+        </div>
+
+        <!-- 4 Search Intent Buckets -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-4 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2">
+            <div class="text-xs font-bold text-primary-bright uppercase tracking-wider flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">info</span> Informational Intent
+            </div>
+            <ul class="flex flex-col gap-1.5 text-xs text-white mt-1" id="kwInfoList"></ul>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2">
+            <div class="text-xs font-bold text-accent-cyan uppercase tracking-wider flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">build</span> Tutorial / How-To
+            </div>
+            <ul class="flex flex-col gap-1.5 text-xs text-white mt-1" id="kwTutorialList"></ul>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2">
+            <div class="text-xs font-bold text-accent-emerald uppercase tracking-wider flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">compare_arrows</span> Comparison Intent
+            </div>
+            <ul class="flex flex-col gap-1.5 text-xs text-white mt-1" id="kwCompList"></ul>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2">
+            <div class="text-xs font-bold text-accent-amber uppercase tracking-wider flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">troubleshoot</span> Troubleshooting
+            </div>
+            <ul class="flex flex-col gap-1.5 text-xs text-white mt-1" id="kwTroubleList"></ul>
+          </div>
+        </div>
+
+        <!-- Candidate YouTube Tags Cluster -->
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-white flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-primary-bright text-[16px]">label</span>
+              <span>Recommended Video Tags Cluster (Ready to Copy)</span>
+            </span>
+            <button id="copyTagsBtn" class="flex items-center gap-1 text-xs text-accent-cyan hover:underline">
+              <span class="material-symbols-outlined text-[14px]">content_copy</span>
+              <span>Copy Tags</span>
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-2" id="tagsContainer">
+            <!-- Tags rendered here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- WORKFLOW STEP 4: AI PREDICTIONS -->
+      <!-- ========================================== -->
+      <section id="section-predictions" class="flex flex-col gap-4">
+        <div class="flex items-center justify-between border-b border-surface-border pb-3">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-accent-cyan">Workflow Stage 4</div>
+            <h2 class="font-headline text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-accent-cyan text-[24px]">trending_up</span>
+              <span>Observed Baselines &amp; Strategy Guidance</span>
+            </h2>
+          </div>
+          <span class="text-xs text-on-surface-muted">Current public YouTube sample · no future-view forecast</span>
+        </div>
+
+        <!-- Growth Velocity Benchmarks (What AI Predicts) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2">
+            <div class="text-xs font-bold text-on-surface-muted uppercase tracking-wider">Observed sample · current results</div>
+            <div class="text-2xl font-bold text-white mt-1" id="tier1Seed">Unavailable</div>
+            <p class="text-xs text-on-surface-muted">Subscriber notifications &amp; initial search impressions.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2">
+            <div class="text-xs font-bold text-accent-cyan uppercase tracking-wider">Views and engagement</div>
+            <div class="text-2xl font-bold text-accent-cyan mt-1" id="tier2Mid">Unavailable</div>
+            <p class="text-xs text-on-surface-muted">Not available from public search data.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-2">
+            <div class="text-xs font-bold text-accent-emerald uppercase tracking-wider">Future performance</div>
+            <div class="text-2xl font-bold text-accent-emerald mt-1" id="tier3Authority">Unavailable</div>
+            <p class="text-xs text-on-surface-muted">Not forecast from public search data.</p>
+          </div>
+        </div>
+
+        <!-- Target Metrics & Retention Expectations -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border flex items-center justify-between">
+            <div>
+              <div class="text-[11px] text-on-surface-muted font-medium">Channel CTR</div>
+              <div class="text-lg font-bold text-white mt-0.5" id="targetCtr">Unavailable</div>
+            </div>
+            <span class="material-symbols-outlined text-accent-emerald text-[24px]">ads_click</span>
+          </div>
+
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border flex items-center justify-between">
+            <div>
+              <div class="text-[11px] text-on-surface-muted font-medium">Audience retention</div>
+              <div class="text-lg font-bold text-white mt-0.5" id="targetRetention">Unavailable</div>
+            </div>
+            <span class="material-symbols-outlined text-accent-cyan text-[24px]">timer</span>
+          </div>
+
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border flex items-center justify-between">
+            <div>
+              <div class="text-[11px] text-on-surface-muted font-medium">Average view duration</div>
+              <div class="text-lg font-bold text-white mt-0.5" id="targetAvd">Unavailable</div>
+            </div>
+            <span class="material-symbols-outlined text-primary-bright text-[24px]">speed</span>
+          </div>
+        </div>
+
+        <!-- Explanation: How AI Predicts It -->
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-3">
+          <div class="text-xs font-bold text-primary-bright uppercase tracking-wider flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">analytics</span>
+            <span>Data sources and limitations</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="predictionMethodologyGrid">
+            <!-- Dynamically populated methodology steps -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- WORKFLOW STEP 5: FINAL SEO STRATEGY PLAN -->
+      <!-- ========================================== -->
+      <section id="section-strategy" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-surface-border pb-3">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-accent-amber">Workflow Stage 5 &amp; Final Deliverable</div>
+            <h2 class="font-headline text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-accent-amber text-[24px]">task_alt</span>
+              <span>Final SEO Strategy Plan</span>
+            </h2>
+          </div>
+          <span class="text-xs text-on-surface-muted">Concepts, Hooks, Packaging &amp; 7-Day Calendar</span>
+        </div>
+
+        <!-- Part A: Video Concepts & 30-Second Hooks -->
+        <div class="flex flex-col gap-3">
+          <h3 class="font-headline text-base font-bold text-white">5 High-Impact Video Concepts &amp; 30-Second Hooks</h3>
+          <div class="flex flex-col gap-4" id="strategyConceptsList">
+            <!-- Dynamically populated concepts -->
+          </div>
+        </div>
+
+        <!-- Part B: High-CTR Packaging Studio -->
+        <div class="flex flex-col gap-3">
+          <h3 class="font-headline text-base font-bold text-white">High-CTR Packaging Studio (Titles &amp; Thumbnail Blueprints)</h3>
+          <div class="flex flex-col gap-4" id="strategyPackagingList">
+            <!-- Dynamically populated packaging packages -->
+          </div>
+        </div>
+
+        <!-- Part C: 7-Day Production & Launch Calendar -->
+        <div class="p-5 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-3.5">
+          <h3 class="font-headline text-base font-bold text-white flex items-center gap-2">
+            <span class="material-symbols-outlined text-accent-cyan text-[20px]">calendar_month</span>
+            <span>7-Day Actionable Production &amp; Launch Calendar</span>
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-2.5" id="strategyCalendarGrid">
+            <!-- Dynamically populated calendar days -->
+          </div>
+        </div>
+
+        <!-- Part D: Master Blueprint Markdown Output -->
+        <div class="p-6 rounded-2xl bg-surface-card border border-surface-border flex flex-col gap-4">
+          <div class="flex items-center justify-between border-b border-surface-border/50 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-[20px]">description</span>
+              <span class="font-headline font-bold text-white text-base">Full Markdown Strategy Blueprint</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="copyMdBtn" class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-low hover:bg-surface-high text-xs text-white border border-surface-border transition-all">
+                <span class="material-symbols-outlined text-[14px]">content_copy</span>
+                <span>Copy Raw MD</span>
+              </button>
+              <button id="downloadMdBtn" class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primary/90 transition-all">
+                <span class="material-symbols-outlined text-[14px]">download</span>
+                <span>Download File</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-surface-low border border-surface-border/60 max-h-96 overflow-y-auto text-xs leading-relaxed text-on-surface" id="fullReportViewer">
+            <p class="text-on-surface-muted italic">Loading master report blueprint...</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- 4. AUTHENTICATION MODALS (LOGIN, SIGNUP, VERIFY, FORGOT) -->
+  <!-- ============================================================== -->
+  <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden modal-overlay">
+    <div class="bg-surface-card border border-surface-border rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative modal-box flex flex-col gap-5">
+      
+      <!-- Close Button -->
+      <button id="closeAuthModalBtn" class="absolute top-5 right-5 text-on-surface-muted hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+
+      <!-- TAB 1: LOGIN VIEW -->
+      <div id="authViewLogin" class="flex flex-col gap-4">
+        <div>
+          <h3 class="font-headline font-bold text-2xl text-white">Welcome Back</h3>
+          <p class="text-xs text-on-surface-muted mt-1">Sign in to your SEOVerse intelligence dashboard</p>
+        </div>
+
+        <form id="loginForm" class="flex flex-col gap-3.5">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
+            <input type="email" id="loginEmail" required class="w-full bg-surface-low border border-surface-border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-on-surface-muted focus:outline-none focus:border-primary" placeholder="name@example.com" />
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="text-xs font-medium text-slate-300">Password</label>
+              <button type="button" id="switchToForgotBtn" class="text-[11px] text-accent-cyan hover:underline">Forgot password?</button>
+            </div>
+            <input type="password" id="loginPassword" required class="w-full bg-surface-low border border-surface-border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-on-surface-muted focus:outline-none focus:border-primary" placeholder="••••••••" />
+          </div>
+
+          <button type="submit" id="submitLoginBtn" class="mt-2 w-full py-2.5 rounded-xl bg-primary hover:bg-primary-bright text-white text-xs font-bold transition-all shadow-md">
+            Sign In
+          </button>
+        </form>
+
+        <div class="text-center text-xs text-on-surface-muted pt-2 border-t border-surface-border/60">
+          Don't have an account? 
+          <button id="switchToSignupBtn" class="text-primary-bright font-semibold hover:underline">Create an account</button>
+        </div>
+      </div>
+
+      <!-- TAB 2: SIGNUP VIEW -->
+      <div id="authViewSignup" class="flex flex-col gap-4 hidden">
+        <div>
+          <h3 class="font-headline font-bold text-2xl text-white">Create Account</h3>
+          <p class="text-xs text-on-surface-muted mt-1">Deploy autonomous YouTube AI agents today</p>
+        </div>
+
+        <form id="signupForm" class="flex flex-col gap-3.5">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Full Name</label>
+            <input type="text" id="signupName" required class="w-full bg-surface-low border border-surface-border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-on-surface-muted focus:outline-none focus:border-primary" placeholder="Alex Creator" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
+            <input type="email" id="signupEmail" required class="w-full bg-surface-low border border-surface-border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-on-surface-muted focus:outline-none focus:border-primary" placeholder="alex@creator.com" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
+            <input type="password" id="signupPassword" required minlength="8" class="w-full bg-surface-low border border-surface-border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-on-surface-muted focus:outline-none focus:border-primary" placeholder="At least 8 characters" />
+          </div>
+
+          <button type="submit" id="submitSignupBtn" class="mt-2 w-full py-2.5 rounded-xl bg-primary hover:bg-primary-bright text-white text-xs font-bold transition-all shadow-md">
+            Create Account &amp; Send Code
+          </button>
+        </form>
+
+        <div class="text-center text-xs text-on-surface-muted pt-2 border-t border-surface-border/60">
+          Already have an account? 
+          <button id="switchToLoginBtn" class="text-primary-bright font-semibold hover:underline">Sign In</button>
+        </div>
+      </div>
+
+      <!-- TAB 3: EMAIL VERIFICATION VIEW -->
+      <div id="authViewVerify" class="flex flex-col gap-4 hidden">
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-2xl bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan flex items-center justify-center mx-auto mb-3">
+            <span class="material-symbols-outlined text-[24px]">mark_email_read</span>
+          </div>
+          <h3 class="font-headline font-bold text-2xl text-white">Verify Your Email</h3>
+          <p class="text-xs text-on-surface-muted mt-1">We sent a 6-digit verification code to:</p>
+          <p id="verifyEmailDisplay" class="text-xs font-bold text-white mt-0.5">user@example.com</p>
+        </div>
+
+        <form id="verifyForm" class="flex flex-col gap-3.5">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1 text-center">Enter 6-Digit Code</label>
+            <input type="text" id="verifyCodeInput" maxlength="6" required class="w-full bg-surface-low border border-surface-border rounded-xl px-4 py-3 text-center text-lg font-mono font-bold tracking-widest text-accent-cyan focus:outline-none focus:border-accent-cyan" placeholder="••••••" />
+          </div>
+
+          <div id="devCodeBanner" class="hidden p-3 rounded-xl bg-accent-cyan/10 border border-accent-cyan/30 text-center flex flex-col gap-1">
+            <span class="text-[11px] text-accent-cyan font-mono">Dev Mode Code Detected:</span>
+            <div class="flex items-center justify-center gap-2">
+              <span id="devCodeValue" class="text-base font-bold font-mono text-white">123456</span>
+              <button type="button" id="autoFillCodeBtn" class="text-[11px] bg-accent-cyan text-black px-2 py-0.5 rounded font-bold hover:opacity-90">Auto Fill</button>
+            </div>
+          </div>
+
+          <button type="submit" id="submitVerifyBtn" class="w-full py-2.5 rounded-xl bg-accent-emerald hover:opacity-90 text-white text-xs font-bold transition-all shadow-md">
+            Verify Email &amp; Launch Studio
+          </button>
+        </form>
+
+        <div class="text-center text-xs text-on-surface-muted pt-2 border-t border-surface-border/60">
+          Didn't receive the email? Check spam or 
+          <button type="button" id="resendCodeBtn" class="text-accent-cyan font-semibold hover:underline">Resend code</button>
+        </div>
+      </div>
+
+      <!-- TAB 4: FORGOT PASSWORD VIEW -->
+      <div id="authViewForgot" class="flex flex-col gap-4 hidden">
+        <div>
+          <h3 class="font-headline font-bold text-2xl text-white">Reset Password</h3>
+          <p class="text-xs text-on-surface-muted mt-1">Enter your account email to receive reset instructions</p>
+        </div>
+
+        <form id="forgotForm" class="flex flex-col gap-3.5">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
+            <input type="email" id="forgotEmail" required class="w-full bg-surface-low border border-surface-border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-on-surface-muted focus:outline-none focus:border-primary" placeholder="alex@creator.com" />
+          </div>
+
+          <button type="submit" id="submitForgotBtn" class="mt-2 w-full py-2.5 rounded-xl bg-primary hover:bg-primary-bright text-white text-xs font-bold transition-all shadow-md">
+            Send Reset Instructions
+          </button>
+        </form>
+
+        <div class="text-center text-xs text-on-surface-muted pt-2 border-t border-surface-border/60">
+          Remembered your password? 
+          <button id="backToLoginFromForgot" class="text-primary-bright font-semibold hover:underline">Sign In</button>
+        </div>
+      </div>
+
+      <!-- TAB 5: RESET PASSWORD VIEW -->
+      <div id="authViewReset" class="flex flex-col gap-4 hidden">
+        <div>
+          <h3 class="font-headline font-bold text-2xl text-white">Choose New Password</h3>
+          <p class="text-xs text-on-surface-muted mt-1">Enter your reset code and new secure password</p>
+        </div>
+
+        <form id="resetForm" class="flex flex-col gap-3.5">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Reset Code / Token</label>
+            <input type="text" id="resetTokenInput" required class="w-full bg-surface-low border border-surface-border rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-primary" placeholder="Enter reset token" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">New Password</label>
+            <input type="password" id="resetNewPassword" minlength="8" required class="w-full bg-surface-low border border-surface-border rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-primary" placeholder="At least 8 characters" />
+          </div>
+
+          <button type="submit" id="submitResetBtn" class="mt-2 w-full py-2.5 rounded-xl bg-accent-emerald hover:opacity-90 text-white text-xs font-bold transition-all shadow-md">
+            Update Password &amp; Log In
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- 5. USER HISTORY MODAL / DRAWER -->
+  <!-- ============================================================== -->
+  <div id="historyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden modal-overlay">
+    <div class="bg-surface-card border border-surface-border rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl relative modal-box flex flex-col gap-5 max-h-[85vh]">
+      
+      <div class="flex items-center justify-between border-b border-surface-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-accent-cyan text-[22px]">history</span>
+          <div>
+            <h3 class="font-headline font-bold text-lg text-white">My Saved Analysis Reports</h3>
+            <p class="text-xs text-on-surface-muted">Past YouTube SEO strategy blueprints generated on your account</p>
+          </div>
+        </div>
+        <button id="closeHistoryModalBtn" class="text-on-surface-muted hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- History List Container -->
+      <div id="historyListContainer" class="flex flex-col gap-3 overflow-y-auto max-h-[55vh] pr-1">
+        <p class="text-xs text-on-surface-muted italic py-6 text-center">Loading past reports...</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- 6. LIVE 6-AGENT WORKFLOW PROGRESS MODAL -->
+  <!-- ============================================================== -->
+  <div id="executionModal" class="fixed inset-0 bg-surface/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-card border border-surface-border rounded-2xl p-6 max-w-lg w-full shadow-2xl flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-primary/20 text-primary-bright flex items-center justify-center animate-spin">
+            <span class="material-symbols-outlined text-[20px]">sync</span>
+          </div>
+          <div>
+            <h3 class="font-headline text-base font-bold text-white">6-Agent Autonomous Workflow</h3>
+            <p class="text-xs text-on-surface-muted">Gemini AI is researching &amp; building your strategy plan.</p>
+          </div>
+        </div>
+        <span class="text-xs font-mono font-bold text-accent-cyan bg-surface-low px-2 py-1 rounded" id="modalElapsed">0s</span>
+      </div>
+
+      <!-- Stages -->
+      <div class="flex flex-col gap-2 text-xs">
+        <div class="p-2.5 rounded-xl bg-surface-low border border-surface-border/50 flex items-center justify-between" id="stageStep1">
+          <span class="font-medium text-white">1. Audience &amp; Opportunity Strategist</span>
+          <span class="stage-badge text-[11px] text-accent-cyan font-medium">Pending</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-surface-low border border-surface-border/50 flex items-center justify-between" id="stageStep2">
+          <span class="font-medium text-white">2. Content Research Director (Viral Hooks)</span>
+          <span class="stage-badge text-[11px] text-on-surface-muted font-medium">Pending</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-surface-low border border-surface-border/50 flex items-center justify-between" id="stageStep3">
+          <span class="font-medium text-white">3. Competitor Intelligence (Live YouTube Data)</span>
+          <span class="stage-badge text-[11px] text-on-surface-muted font-medium">Pending</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-surface-low border border-surface-border/50 flex items-center justify-between" id="stageStep4">
+          <span class="font-medium text-white">4. YouTube SEO &amp; Search Intent Strategist</span>
+          <span class="stage-badge text-[11px] text-on-surface-muted font-medium">Pending</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-surface-low border border-surface-border/50 flex items-center justify-between" id="stageStep5">
+          <span class="font-medium text-white">5. CTR &amp; Metadata Studio Master</span>
+          <span class="stage-badge text-[11px] text-on-surface-muted font-medium">Pending</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-surface-low border border-surface-border/50 flex items-center justify-between" id="stageStep6">
+          <span class="font-medium text-white">6. Senior Executive Strategy Editor</span>
+          <span class="stage-badge text-[11px] text-on-surface-muted font-medium">Pending</span>
+        </div>
+      </div>
+
+      <div class="text-[11px] text-on-surface-muted bg-surface-low p-2.5 rounded-xl border border-surface-border/40 flex items-center gap-2" id="modalStatusText">
+        <span class="w-2 h-2 rounded-full bg-accent-cyan animate-pulse"></span>
+        <span>Sampling live YouTube competitor benchmarks &amp; calculating predictions...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

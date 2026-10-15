@@ -1,0 +1,28 @@
+[project]
+name = "youtube_seo_agent"
+version = "0.1.0"
+description = "youtube_seo_agent using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[file-processing,litellm,tools]>=1.15.24,<2.0.0",
+]
+
+[project.scripts]
+youtube_seo_agent = "youtube_seo_agent.main:run"
+run_crew = "youtube_seo_agent.main:run"
+train = "youtube_seo_agent.main:train"
+replay = "youtube_seo_agent.main:replay"
+test = "youtube_seo_agent.main:test"
+run_with_trigger = "youtube_seo_agent.main:run_with_trigger"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
+project_id = "e3d455bf-6ee0-4f54-888d-b9ddc7cc7ca9"
+
+[tool.uv]
+override-dependencies = ["litellm<=1.82.6"]

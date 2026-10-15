@@ -1,0 +1,10 @@
+.git
+.venv
+venv
+__pycache__
+.pytest_cache
+.env
+api.env
+database/*.db
+reports/*.md
+.codex-backup-*

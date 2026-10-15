@@ -1,0 +1,273 @@
+/* SEOVerse — Intelligent YouTube AI SEO & Growth Studio */
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #06070b;
+    color: #e2e8f0;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #06070b;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2638;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #313f5c;
+}
+
+/* Dark Grid Pattern (SEOVerse Reference) */
+.aivora-grid {
+  background-color: #06070b;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.aivora-radial-glow {
+  background: radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.08) 0%, rgba(99, 102, 241, 0.05) 35%, transparent 70%);
+}
+
+.aivora-emerald-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.09) 0%, transparent 60%);
+}
+
+/* Glow Borders & Highlights */
+.glow-card {
+  background: #0d111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glow-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 8px 30px -4px rgba(99, 102, 241, 0.15);
+}
+
+.agent-node-center {
+  background: #0e1420;
+  border: 1.5px solid #10b981;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.25), inset 0 0 15px rgba(16, 185, 129, 0.1);
+}
+
+.agent-node-left {
+  background: #0f131d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.agent-node-tool {
+  background: #0a0d14;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.agent-node-tool:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: #0f1522;
+}
+
+/* Animated SVG Connector Pulses */
+@keyframes flowPulse {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.connector-pulse {
+  stroke-dasharray: 6 8;
+  animation: flowPulse 2.4s linear infinite;
+}
+
+.connector-pulse-reverse {
+  stroke-dasharray: 6 8;
+  animation: flowPulse 2.4s linear infinite reverse;
+}
+
+/* Stepper & Active Tabs */
+.wf-step-btn.active {
+  border-color: rgba(99, 102, 241, 0.7) !important;
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #a5b4fc !important;
+  font-weight: 600;
+}
+
+/* Toast Notifications */
+.toast {
+  pointer-events: auto;
+  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Markdown Blueprint Styles */
+#fullReportViewer h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #1e2638;
+  padding-bottom: 0.35rem;
+}
+#fullReportViewer h1:first-child {
+  margin-top: 0;
+}
+#fullReportViewer h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #a5b4fc;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+#fullReportViewer h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #38bdf8;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+#fullReportViewer p {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+#fullReportViewer ul, #fullReportViewer ol {
+  margin-bottom: 0.75rem;
+  padding-left: 1.25rem;
+}
+#fullReportViewer li {
+  margin-bottom: 0.25rem;
+  color: #e2e8f0;
+}
+#fullReportViewer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.8rem;
+  background: #0a0d14;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+#fullReportViewer th {
+  background: #141a28;
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  color: #a5b4fc;
+  font-weight: 600;
+  border-bottom: 1px solid #1e2638;
+}
+#fullReportViewer td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #141a28;
+  color: #e2e8f0;
+}
+#fullReportViewer tr:hover td {
+  background-color: #0f1522;
+}
+#fullReportViewer pre {
+  background: #06070b;
+  border: 1px solid #1e2638;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.78rem;
+  color: #38bdf8;
+  margin-bottom: 0.75rem;
+}
+#fullReportViewer code:not(pre code) {
+  background: #141a28;
+  color: #a5b4fc;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.2rem;
+  font-size: 0.85em;
+  font-family: monospace;
+}
+#fullReportViewer a {
+  color: #38bdf8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+#fullReportViewer a:hover {
+  color: #a5b4fc;
+}
+
+/* Modal and Drawer Transitions */
+.modal-overlay {
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.modal-box {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+/* Premium grayscale landing treatment inspired by the supplied references. */
+:root { color-scheme: dark; }
+.aivora-grid {
+  background-color: #050505;
+  background-image: linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.aivora-radial-glow {
+  background: radial-gradient(ellipse at 50% 4%, rgba(255,255,255,.14), transparent 48%),
+    linear-gradient(180deg, #101010 0%, #050505 75%);
+}
+body { background-color: #050505; }
+header { border-color: rgba(255,255,255,.14) !important; }
+#hero h1 { letter-spacing: -.055em; }
+#hero h1 span { background-image: linear-gradient(110deg, #fff 10%, #bdbdbd 72%, #737373) !important; }
+.agent-node-center {
+  background: #111;
+  border-color: #777;
+  box-shadow: 0 0 28px rgba(255,255,255,.08), inset 0 0 14px rgba(255,255,255,.04);
+}
+.agent-node-center .text-emerald-400, .agent-node-center .text-accent-emerald { color: #d4d4d4; }
+.connector-pulse { stroke: #a3a3a3 !important; }
+.glow-card:hover { border-color: rgba(255,255,255,.38); box-shadow: 0 12px 36px rgba(255,255,255,.06); }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid #eee; outline-offset: 3px; }
+.dashboard-shell { scroll-margin-top: 6rem; }
+body:not(.is-authenticated) .dashboard-shell { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media (max-width: 640px) {
+  .aivora-grid { background-size: 48px 48px; }
+  #hero { padding-top: 3.5rem; padding-bottom: 4rem; }
+  #interactive-diagram { padding: 1rem; }
+}
+
+#pricing-section { display: none; }
